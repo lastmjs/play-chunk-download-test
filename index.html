@@ -17,7 +17,7 @@
             const oneMegabyteInBytes = 1048576;
             const chunkSize = oneMegabyteInBytes;
             
-            let chunkIndex = 0;
+            let chunkIndex = 1;
             
             document.getElementById(`download-button`).addEventListener('click', async () => {
                 const audioURL = document.getElementById('audio-url-input').value;
@@ -35,6 +35,17 @@
                 
                 audioElement.addEventListener('timeupdate', (e) => {
                     console.log(audioElement.currentTime);
+                    
+                    if (audioElement.currentTime >= audioElement.duration - 1) {
+                        const blobChunk = await get(`chunk-${chunkIndex}`);
+                        const srcURL = window.URL.createObjectURL(blobChunk);
+                        
+                        audioElement.src = srcURL;
+                    }
+                });
+                
+                audioElement.addEventListener('loadeddata', () => {
+                    audioElement.play();
                 });
             });
             
