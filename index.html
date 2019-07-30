@@ -17,7 +17,7 @@
                 
                 await clear();
                 
-                await fetchAndSaveAudioFile();
+                await fetchAndSaveAudioFile(audioURL);
             });
             
             import { set, get, clear } from 'https://unpkg.com/idb-keyval/dist/idb-keyval.mjs';
@@ -42,7 +42,7 @@
                     
                 const audioFileBlob = await audioFileResponse.blob();
                     
-                await set(`chunk-${index}`, audioFileArrayBuffer);
+                await set(`chunk-${index}`, audioFileBlob);
                     
                 const responseContentLength = audioFileResponse.headers.get('Content-Length');
                     
