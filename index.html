@@ -32,6 +32,10 @@
                 const audioElement = document.querySelector('audio');
                 
                 audioElement.src = srcURL;
+                
+                audioElement.addEventListener('timeupdate', (e) => {
+                    console.log(audioElement.currentTime);
+                });
             });
             
             async function fetchAndSaveAudioFile(
