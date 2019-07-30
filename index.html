@@ -26,7 +26,7 @@
                 
                 await fetchAndSaveAudioFile(audioURL);
                 
-                const blobChunk = await get('chunk-0');
+                const blobChunk = await get('chunk-1');
                 const srcURL = window.URL.createObjectURL(blobChunk);
                 
                 const audioElement = document.querySelector('audio');
