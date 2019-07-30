@@ -11,7 +11,35 @@
         <audio controls></audio>
         
         <script type="module">
+            const oneMegabyteInBytes = 1048576;
+            const chunkSize = oneMegabyteInBytes;
             
+            async function fetchAndSaveAudioFile(
+                url,
+                index = 0,
+                rangeStart = 0,
+                rangeEnd = chunkSize
+            ) {
+                const audioFileResponse = await fetch(url, {
+                    headers: {
+                        'Range': `bytes=${rangeStart}-${rangeEnd}`
+                    }
+                });
+                    
+                const audioFileBlob = await audioFileResponse.blob();
+                    
+                await set(`chunk-${index}`, audioFileArrayBuffer);
+                    
+                const responseContentLength = audioFileResponse.headers.get('Content-Length');
+                    
+                if (
+                    parseInt(responseContentLength) < chunkSize + 1
+                ) {
+                    return;
+                }
+                    
+                await fetchAndSaveAudioFile(url, index + 1, rangeStart + chunkSize, rangeEnd + chunkSize);
+            }
         </script>
     </body>
 </html>
