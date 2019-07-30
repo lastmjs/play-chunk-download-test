@@ -28,6 +28,10 @@
                 
                 const blobChunk = await get('chunk-0');
                 const srcURL = window.URL.createObjectURL(blobChunk);
+                
+                const audioElement = document.querySelector('audio');
+                
+                audioElement.src = srcURL;
             });
             
             async function fetchAndSaveAudioFile(
