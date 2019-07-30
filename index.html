@@ -41,14 +41,15 @@
                         const blobChunk = await get(`chunk-${chunkIndex}`);
                         const srcURL = window.URL.createObjectURL(blobChunk);
                         
-                        audioElement.pause();
+                        // audioElement.pause();
                         audioElement.src = srcURL;
+//                         audioElement
                     }
                 });
                 
                 audioElement.addEventListener('loadeddata', () => {
                     console.log('loadeddata');
-                    audioElement.play();
+//                     audioElement.play();
                 });
             });
             
