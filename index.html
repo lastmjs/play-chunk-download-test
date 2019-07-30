@@ -41,6 +41,7 @@
                         const blobChunk = await get(`chunk-${chunkIndex}`);
                         const srcURL = window.URL.createObjectURL(blobChunk);
                         
+                        audioElement.pause();
                         audioElement.src = srcURL;
                     }
                 });
