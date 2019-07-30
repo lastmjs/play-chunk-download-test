@@ -6,12 +6,21 @@
     </head>
     
     <body>
-        <input type="text" placeholder="Enter audio URL">
+        <input id="audio-url-input" type="text" placeholder="Enter audio URL">
         <button id="download-button">Download</button>
         <audio controls></audio>
         
         <script type="module">
-            import { set, get } from 'https://unpkg.com/idb-keyval/dist/idb-keyval.mjs';
+            
+            document.getElementById(`#download-button`).addEventListener('click', async () => {
+                const audioURL = document.getElementById('#audio-url-input').value;
+                
+                await clear();
+                
+                await fetchAndSaveAudioFile();
+            });
+            
+            import { set, get, clear } from 'https://unpkg.com/idb-keyval/dist/idb-keyval.mjs';
             
             const oneMegabyteInBytes = 1048576;
             const chunkSize = oneMegabyteInBytes;
@@ -22,6 +31,9 @@
                 rangeStart = 0,
                 rangeEnd = chunkSize
             ) {
+                console.log(`rangeStart`, rangeStart);
+                console.log(`rangeEnd`, rangeEnd);
+                    
                 const audioFileResponse = await fetch(url, {
                     headers: {
                         'Range': `bytes=${rangeStart}-${rangeEnd}`
