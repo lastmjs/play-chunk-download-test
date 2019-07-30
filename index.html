@@ -33,8 +33,9 @@
                 
                 audioElement.src = srcURL;
                 
-                audioElement.addEventListener('timeupdate', (e) => {
-                    console.log(audioElement.currentTime);
+                audioElement.addEventListener('timeupdate', async (e) => {
+                    console.log('audioElement.currentTime', audioElement.currentTime);
+                    console.log('audioElement.duration', audioElement.duration);
                     
                     if (audioElement.currentTime >= audioElement.duration - 1) {
                         const blobChunk = await get(`chunk-${chunkIndex}`);
@@ -45,6 +46,7 @@
                 });
                 
                 audioElement.addEventListener('loadeddata', () => {
+                    console.log('loadeddata');
                     audioElement.play();
                 });
             });
